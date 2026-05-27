@@ -1,86 +1,99 @@
+<?php
+$message = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    $barname = $_POST["barname"];
+    $surname = $_POST["surname"];
+    $email = $_POST["email"];
+    $contact = $_POST["contact"];
+
+    $message = "Form Submitted Successfully!";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EmailJS Form</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHP Form</title>
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-    background:#f2f2f2;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+background:#f2f2f2;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
 }
 
 .form-container{
-    background:white;
-    padding:30px;
-    width:350px;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+background:white;
+padding:30px;
+width:350px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
 h2{
-    text-align:center;
-    margin-bottom:20px;
-    color:#333;
+text-align:center;
+margin-bottom:20px;
+color:#333;
 }
 
 .input-group{
-    margin-bottom:15px;
+margin-bottom:15px;
 }
 
 .input-group label{
-    display:block;
-    margin-bottom:5px;
-    color:#555;
-    font-size:14px;
+display:block;
+margin-bottom:5px;
+font-size:14px;
+color:#555;
 }
 
 .input-group input{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:14px;
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:14px;
 }
 
 .input-group input:focus{
-    outline:none;
-    border-color:#007bff;
+outline:none;
+border-color:#007bff;
 }
 
 button{
-    width:100%;
-    padding:12px;
-    background:#007bff;
-    color:white;
-    border:none;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#007bff;
+color:white;
+font-size:16px;
+cursor:pointer;
 }
 
 button:hover{
-    background:#0056b3;
+background:#0056b3;
 }
 
-#message{
-    margin-top:15px;
-    text-align:center;
-    font-size:14px;
-    color:green;
+.message{
+margin-top:15px;
+text-align:center;
+color:green;
+font-size:14px;
 }
 
 </style>
@@ -90,77 +103,41 @@ button:hover{
 
 <div class="form-container">
 
-    <h2>Contact Form</h2>
+<h2>Registration Form</h2>
 
-    <form id="contactForm">
+<form method="POST">
 
-        <div class="input-group">
-            <label>Bar Name</label>
-            <input type="text" id="bar_name" placeholder="Enter bar name" required>
-        </div>
+<div class="input-group">
+<label>Bar Name</label>
+<input type="text" name="barname" placeholder="Enter bar name" required>
+</div>
 
-        <div class="input-group">
-            <label>Surname</label>
-            <input type="text" id="surname" placeholder="Enter surname" required>
-        </div>
+<div class="input-group">
+<label>Surname</label>
+<input type="text" name="surname" placeholder="Enter surname" required>
+</div>
 
-        <div class="input-group">
-            <label>Email</label>
-            <input type="email" id="email" placeholder="Enter email" required>
-        </div>
+<div class="input-group">
+<label>Email</label>
+<input type="email" name="email" placeholder="Enter email" required>
+</div>
 
-        <div class="input-group">
-            <label>Contact</label>
-            <input type="tel" id="contact" placeholder="Enter contact number" required>
-        </div>
+<div class="input-group">
+<label>Contact</label>
+<input type="tel" name="contact" placeholder="Enter contact number" required>
+</div>
 
-        <button type="submit">Send</button>
+<button type="submit">Submit</button>
 
-    </form>
+</form>
 
-    <div id="message"></div>
+<?php
+if($message != ""){
+    echo "<div class='message'>$message</div>";
+}
+?>
 
 </div>
 
-<!-- EMAILJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<script>
-
-// EMAILJS PUBLIC KEY
-emailjs.init("0PazREzQtkxaCNEKN");
-
-document.getElementById("contactForm").addEventListener("submit", function(e){
-
-    e.preventDefault();
-
-    const params = {
-        bar_name: document.getElementById("bar_name").value,
-        surname: document.getElementById("surname").value,
-        email: document.getElementById("email").value,
-        contact: document.getElementById("contact").value
-    };
-    emailjs.send("service_z1c4gpi","template_5tupw7g",
-        params
-    )
-
-    .then(function(){
-
-        document.getElementById("message").innerHTML = "Message sent successfully!";
-        document.getElementById("contactForm").reset();
-
-    })
-
-    .catch(function(error){
-
-        document.getElementById("message").innerHTML = "Failed to send message";
-        console.log(error);
-
-    });
-
-});
-
-</script>
-
 </body>
-</html
+</html>
