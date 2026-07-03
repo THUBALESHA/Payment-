@@ -95,10 +95,11 @@ document.getElementById("signupForm").addEventListener("submit", function(e){
         document.getElementById("message").innerHTML="✔ Details sent successfully!";
         document.getElementById("signupForm").reset();
     })
-    .catch(function(error){
-        document.getElementById("message").style.color="red";
-        document.getElementById("message").innerHTML="❌ Failed to send.";
-        console.error(error);
+
+                      .catch(function(error){
+    console.log(error);
+    alert(JSON.stringify(error));
+});
     });
 });
 </script>
